@@ -28,8 +28,7 @@ public class TomcatAppServer {
         try {
             tomcat = new Tomcat();
             tomcat.setPort(port);
-
-            StandardContext ctx = (StandardContext) tomcat.addWebapp("/", contextDirectoryPath);
+            StandardContext ctx = (StandardContext) tomcat.addContext("/", contextDirectoryPath);
             System.out.println("configuring app with basedir: " + contextDirectoryPath);
 
             HandlesTypes onStartup = servletInitializerClass.getAnnotation(HandlesTypes.class);
@@ -37,16 +36,14 @@ public class TomcatAppServer {
             Set<Class<?>> contextIntitializerTypes = new HashSet<Class<?>>();
 
             for (Class<?> type : onStartup.value()) {
-                for (Class<?> subType: reflections.getSubTypesOf(type)) {
+                for (Class<?> subType : reflections.getSubTypesOf(type)) {
                     contextIntitializerTypes.add(subType);
                 }
                 contextIntitializerTypes.addAll(reflections.getSubTypesOf(type));
             }
-            servletInitializerClass.newInstance().onStartup(contextIntitializerTypes, ctx.getServletContext());
+            ctx.addServletContainerInitializer(servletInitializerClass.newInstance(), contextIntitializerTypes);
 
             tomcat.start();
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
         } catch (LifecycleException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {
@@ -67,10 +64,10 @@ public class TomcatAppServer {
     private static String createTempContextDirectory() {
         try {
             File dir = File.createTempFile("tomcat-webapp-context", "");
-            if (!dir.mkdirs()) {
-                throw new RuntimeException("unable to create tomcat context directory: " + dir.getAbsolutePath());
-            } else {
+            if (dir.delete() && dir.mkdirs()) {
                 return dir.getAbsolutePath();
+            } else {
+                throw new RuntimeException("unable to create tomcat context directory: " + dir.getAbsolutePath());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

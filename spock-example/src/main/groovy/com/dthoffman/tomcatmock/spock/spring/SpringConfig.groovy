@@ -23,7 +23,7 @@ class SpringConfig {
     }
 
     @Bean
-    RESTClient restClient(@Value("downstream.url") String dowstreamUrl) {
+    RESTClient restClient(@Value('${downstream.url}') String dowstreamUrl) {
         return new RESTClient(dowstreamUrl)
     }
 

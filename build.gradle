@@ -5,3 +5,16 @@ allprojects {
         mavenCentral()
     }
 }
+
+subprojects {
+    apply plugin: 'java'
+    dependencies {
+        // tomcat
+        compile "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+        compile "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+        compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+        compile "org.apache.tomcat:tomcat-jasper:${tomcatVersion}"
+        compile "org.apache.tomcat:tomcat-jasper-el:${tomcatVersion}"
+        compile "org.apache.tomcat:tomcat-jsp-api:${tomcatVersion}"
+    }
+}

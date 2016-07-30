@@ -1,16 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-
     // https://mvnrepository.com/artifact/org.reflections/reflections
     compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
 
-
-    // tomcat
-    compile "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
-    compile "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
-    compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-    compile "org.apache.tomcat:tomcat-jasper:${tomcatVersion}"
-    compile "org.apache.tomcat:tomcat-jasper-el:${tomcatVersion}"
-    compile "org.apache.tomcat:tomcat-jsp-api:${tomcatVersion}"
 }

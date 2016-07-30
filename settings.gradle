@@ -1,5 +1,4 @@
 include "tomcat-mock-server-core"
-include "tomcat-mock-server-spock"
 include 'tomcat-test-app-server'
 include 'spock-example'
 
