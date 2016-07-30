@@ -1,0 +1,7 @@
+group 'com.dthoffman.tomcat.mock.server'
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
