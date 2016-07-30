@@ -21,10 +21,4 @@ class SpringConfig {
     static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer()
     }
-
-    @Bean
-    RESTClient restClient(@Value('${downstream.url}') String dowstreamUrl) {
-        return new RESTClient(dowstreamUrl)
-    }
-
 }
