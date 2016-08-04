@@ -7,7 +7,6 @@ import org.apache.catalina.startup.Tomcat;
 import org.reflections.Reflections;
 
 import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +27,7 @@ public class TomcatAppServer {
         try {
             tomcat = new Tomcat();
             tomcat.setPort(port);
+            tomcat.setBaseDir(contextDirectoryPath);
             StandardContext ctx = (StandardContext) tomcat.addContext("/", contextDirectoryPath);
             System.out.println("configuring app with basedir: " + contextDirectoryPath);
 

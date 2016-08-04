@@ -1,14 +1,10 @@
 package com.dthoffman.tomcatmock;
 
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 
-import javax.servlet.annotation.HandlesTypes;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by dhoffman on 7/29/16.
@@ -23,6 +19,7 @@ public class TomcatMockServer {
     public void start() {
         tomcat = new Tomcat();
         tomcat.setPort(port);
+        tomcat.setBaseDir(createTempContextDirectory());
         tomcat.addContext("/", createTempContextDirectory());
         tomcat.addServlet("/", "mockServlet", mockServlet).addMapping("/");
         try {

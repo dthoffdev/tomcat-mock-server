@@ -1,7 +1,24 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 
 dependencies {
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+
+    // groovy
+    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+
+    // spock
+    testCompile "org.spockframework:spock-core:${spockVersion}"
+
+    // https://mvnrepository.com/artifact/cglib/cglib-nodep
+    testCompile group: 'cglib', name: 'cglib-nodep', version: '2.2'
+
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder
+    testCompile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
 
 }
