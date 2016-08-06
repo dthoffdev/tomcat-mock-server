@@ -1,13 +1,82 @@
-group 'com.dthoffman.tomcat.mock.server'
-
 allprojects {
+    group 'com.dthoffman.tomcatmock'
+    version '0.0.1-SNAPSHOT'
     repositories {
         mavenCentral()
     }
 }
 
 subprojects {
+
+
     apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'signing'
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
+
+    signing {
+        sign configurations.archives
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name 'Tomcat Mock Server'
+                    packaging 'jar'
+                    // optionally artifactId can be defined here
+                    description 'Helper code to spin up a tomcat app during tests and mocking downstream http calls'
+                    url 'https://github.com/dhoff1985/tomcat-mock-server'
+
+                    scm {
+                        connection 'scm:git:https://github.com/dhoff1985/tomcat-mock-server.git'
+                        developerConnection 'scm:git:https://github.com/dhoff1985/tomcat-mock-server.git'
+                        url 'https://github.com/dhoff1985/tomcat-mock-server'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'dhoff1985'
+                            name 'David Hoffman'
+                            email 'dhoff1985@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     dependencies {
         // tomcat
         compile "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
