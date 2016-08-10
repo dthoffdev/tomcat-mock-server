@@ -1,5 +1,6 @@
 package com.dthoffman.tomcatmock
 
+import org.apache.catalina.startup.Tomcat
 import spock.lang.Specification
 
 class TomcatResponseSpec extends Specification {
@@ -13,5 +14,13 @@ class TomcatResponseSpec extends Specification {
         response.body == "foo".bytes
         response.contentType == "text/plain"
         response.headers["foo"] == "bar"
+    }
+
+    def "InputStream body"() {
+        when:
+        TomcatResponse response = TomcatResponse.status(200).body(new ByteArrayInputStream("foo".bytes)).build()
+
+        then:
+        response.body == "foo".bytes
     }
 }

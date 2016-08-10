@@ -21,7 +21,7 @@ public class TomcatAppServer {
 
     private int port;
 
-    private Class<ServletContainerInitializer> servletInitializerClass;
+    private Class<? extends ServletContainerInitializer> servletInitializerClass;
 
     public void start() {
         try {
@@ -90,11 +90,11 @@ public class TomcatAppServer {
         this.port = port;
     }
 
-    public Class<ServletContainerInitializer> getServletInitializerClass() {
+    public Class<? extends ServletContainerInitializer> getServletInitializerClass() {
         return servletInitializerClass;
     }
 
-    public void setServletInitializerClass(Class<ServletContainerInitializer> servletInitializerClass) {
+    public void setServletInitializerClass(Class<? extends ServletContainerInitializer> servletInitializerClass) {
         this.servletInitializerClass = servletInitializerClass;
     }
 

@@ -42,7 +42,7 @@ class MockServletSpec extends Specification {
 
         then:
         1 * mockServletRequest.getRequestURI() >> '/path'
-        1 * tomcatMock.method(HttpMethod.GET, '/path', mockServletRequest) >> TomcatResponse.status(200).body(body).contentType(contentType).header('header', 'value').build()
+        1 * tomcatMock.method(HttpMethod.GET, '/path', mockServletRequest) >> TomcatResponse.status(200).body(body as byte[]).contentType(contentType).header('header', 'value').build()
         1 * mockServletResponse.setStatus(200)
         0 * mockServletResponse.setContentType(_)
         0 * mockServletResponse.getOutputStream()

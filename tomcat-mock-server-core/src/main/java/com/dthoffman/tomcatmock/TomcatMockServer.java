@@ -53,4 +53,8 @@ public class TomcatMockServer {
     public void setTomcatMock(TomcatMock tomcatMock) {
         mockServlet.tomcatMock = tomcatMock;
     }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }

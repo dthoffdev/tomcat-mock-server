@@ -1,5 +1,9 @@
 package com.dthoffman.tomcatmock;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +58,11 @@ public class TomcatResponse {
 
         public TomcatResponse.Builder body(byte[] body) {
             this.body = body;
+            return this;
+        }
+
+        public TomcatResponse.Builder body(InputStream body) throws IOException {
+            this.body = IOUtils.toByteArray(body);
             return this;
         }
 
