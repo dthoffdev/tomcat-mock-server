@@ -19,7 +19,7 @@ public class TomcatAppServer {
 
     private Tomcat tomcat;
 
-    private int port;
+    private int port = 8080;
 
     private Class<? extends ServletContainerInitializer> servletInitializerClass;
 
@@ -100,5 +100,10 @@ public class TomcatAppServer {
 
     public Tomcat getTomcat() {
         return tomcat;
+    }
+
+    public String getURL() {
+
+        return "http://localhost:" + Integer.toString(port);
     }
 }

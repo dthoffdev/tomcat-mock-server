@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by dhoffman on 7/29/16.
  */
 public class TomcatMockServer {
-    int port;
+    int port = 8081;
 
     Tomcat tomcat;
 
@@ -56,5 +56,9 @@ public class TomcatMockServer {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getURL() {
+        return "http://localhost:" + port;
     }
 }
